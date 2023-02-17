@@ -24,16 +24,14 @@ jobs:
         working-directory: ./src
     steps:
     - uses: actions/checkout@v3
-
     - name: Set Test Project
-	    env:
-	      SOMEDIR: {{ $GITHUB_ACTION_PATH }}/somedir"
+      env:
+        SOMEDIR: ${{ env.GITHUB_ACTION_PATH }}/somedir
       run: |
-	      echo "Global Var: $GLOBAL_VAR"
+        echo "Global Var: $GLOBAL_VAR"
         echo "GHA Path:  $GITHUB_ACTION_PATH"
-		    echo "SomeDir:   $SOMEDIR"
-		    echo "SubDir=$SOMEDIR/subfolder" >> $GITHUB_ENV
-
+        echo "SomeDir:   $SOMEDIR"
+        echo "SubDir=$SOMEDIR/subfolder" >> $GITHUB_ENV
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
       with:

@@ -146,7 +146,7 @@ jobs:
     - name: Send Report to Internal Web SSH Server
       uses: SamKirkland/web-deploy@v1
       with:
-        target-server: daborg69.ooguy.com
+        target-server: daborg69.ooguy.com:2223
         remote-user: sftpgit
         private-ssh-key: ${{ secrets.DABORG_SFTPGIT_SSH_KEY }}
         destination-path: /data/$GITHUB_REPOSITORY/CodeCoverateReport

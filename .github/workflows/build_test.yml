@@ -61,6 +61,7 @@ jobs:
         
         echo "/github/workspace/src/Test_StreamProcessorLibrary/report/"
 
+        echo "REMOTE_SYNC_PATH=/data/syncs/$GITHUB_REPOSITORY/CodeCoverateReport" >> $GITHUB_ENV
 
     - name: Display Variables
       run: |
@@ -71,6 +72,7 @@ jobs:
         echo "Test_Coverage_Report:  $TEST_COVERAGE_REPORT"
         echo "Wiki Mover Root:       $WIKI_MOVER_ROOT"
         echo "WIKI Coverage Path     $WIKI_COVERAGE_PATH"
+        echo "Remote Sync Path       $REMOTE_SYNC_PATH"
 
 
     # Install .Net
@@ -131,7 +133,7 @@ jobs:
         ssh-port: 2223
         remote-user: sftpgit
         private-ssh-key: ${{ secrets.DABORG_SFTPGIT_SSH_KEY }}
-        destination-path: /data/syncs/$GITHUB_REPOSITORY/CodeCoverateReport
+        destination-path: ${{ env.REMOTE_SYNC_PATH }}
 
 
 

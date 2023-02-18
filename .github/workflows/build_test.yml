@@ -12,10 +12,13 @@ on:
     branches: [ "main" ]
 
 
+# The only variables you need to change are these!
 env:
-  GLOBAL_VAR: "Global"
-  TEST_FOLDER: "tests"
+  # This should be only variable you need to change
   TEST_PROJECT: "TestProject1"
+  
+  # These should not need to be changed, if following std
+  TEST_FOLDER: "tests"
   WIKI_MOVER_ROOT: "/github/workspace"
   COVERAGE_FOLDER: "CoverageReport"
 
@@ -49,18 +52,17 @@ jobs:
         echo "TEST_COVERAGE_REPORT=$TEST_PATH/$COVERAGE_FOLDER" >> $GITHUB_ENV
 
         #source $GITHUB_ENV
-        echo "Repo Name=${{ github.event.repository.name }}"
+        echo "REPO_NAME=${{ github.event.repository.name }}"
         echo "WIKI_MOVER_ROOT = $WIKI_MOVER_ROOT"
 
         # WIKI Mover Coverage Report Src Location.  Same as Test Code Coverage Report - but different starting point as running in a docker container.
-        echo "WIKI_COVERAGE_PATH=$WIKI_MOVER_ROOT/$TEST_FOLDER/$TEST_PROJECT/$COVERAGE_FOLDER/" >> $GITHUB_ENV
+        echo "WIKI_COVERAGE_PATH=$WIKI_MOVER_ROOT/$REPO_NAME/$REPO_NAME/TEST_FOLDER/$TEST_PROJECT/$COVERAGE_FOLDER/" >> $GITHUB_ENV
         
         echo "/github/workspace/src/Test_StreamProcessorLibrary/report/"
 
 
     - name: Display Variables
       run: |
-        echo "Global Var:            $GLOBAL_VAR"
         echo "Github_env:            $GITHUB_ENV"
         echo "GitHome Workspace:     $GITHUB_WORKSPACE"
         echo "Test_Path:             $TEST_PATH"

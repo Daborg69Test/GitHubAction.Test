@@ -28,14 +28,15 @@ jobs:
 
     - name: Set Variables
       run: |
-        echo "SOMEDIR=${{ env.GITHUB_ACTION_PATH }}/somedir" >> $GITHUB_ENV
+        echo "SOMEDIR=${{ env.GITHUB_WORKSPACE }}/somedir" >> $GITHUB_ENV
         source $GITHUB_ENV
         echo "SUBDIR=$SOMEDIR/subfolder" >> $GITHUB_ENV
 
     - name: Display Variables
       run: |
         echo "Global Var: $GLOBAL_VAR"
-        echo "GHA Path:  ${{ env.GITHUB_ACTION_PATH }}"
+        echo "Github_env: $GITHUB_ENV"
+        echo "GitHome Workspace:  ${{ env.GITHUB_WORKSPACE }}"
         echo "SomeDir:   $SOMEDIR"
         echo "SubDir:    $SUBDIR"
 

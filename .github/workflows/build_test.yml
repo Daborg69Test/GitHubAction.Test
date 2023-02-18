@@ -28,7 +28,7 @@ jobs:
 
     - name: Set Variables
       run: |
-        echo "SOMEDIR=${{ env.GITHUB_WORKSPACE }}/somedir" >> $GITHUB_ENV
+        echo "SOMEDIR=$GITHUB_WORKSPACE/somedir" >> $GITHUB_ENV
         source $GITHUB_ENV
         echo "SUBDIR=$SOMEDIR/subfolder" >> $GITHUB_ENV
 
@@ -36,7 +36,7 @@ jobs:
       run: |
         echo "Global Var: $GLOBAL_VAR"
         echo "Github_env: $GITHUB_ENV"
-        echo "GitHome Workspace:  ${{ env.GITHUB_WORKSPACE }}"
+        echo "GitHome Workspace:  $GITHUB_WORKSPACE"
         echo "SomeDir:   $SOMEDIR"
         echo "SubDir:    $SUBDIR"
 

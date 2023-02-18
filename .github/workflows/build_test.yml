@@ -73,10 +73,75 @@ jobs:
         echo "WIKI Coverage Path     $WIKI_COVERAGE_PATH"
 
 
+    # Install .Net
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 7.0.x
 
 
-# From https://github.com/im-open/code-coverage-report-generator
+
+    # Restore Dependencies
+    - name: Restore dependencies
+      run: dotnet restore
+
+
+    # Build Program
+    - name: Build
+      run: dotnet build --no-restore --configuration Release
+
+      
+    # Run unit tests and generate coverage data
+    - name: Test
+      run: dotnet test --no-build --verbosity normal --configuration Release /property:CollectCoverage=True /property:CoverletOutputFormat=opencover
+     
+
+    # Generate Coverage Report
+    - name: ReportGenerator
+      uses: danielpalme/ReportGenerator-GitHub-Action@5.1.17       
+      with: 
+        reports: '${{ env.TEST_PROJECT_PATH }}/coverage.opencover.xml'
+        targetdir: '${{ env.TEST_COVERAGE_REPORT }}'
+        reporttypes: 'Html;MarkdownSummary'
+        sourcedirs: ''
+        historydir: ''
+        plugins: ''
+        assemblyfilters: '-nunit*;-Dapper;'
+        classfilters: '+*'
+        filefilters: '-Program.cs;-*.cshtml'
+        verbosity: 'Verbose'
+
+#        title: ${{ env.CODE_COVERAGE_REPORT_NAME }}
+        tag: '${{ github.workflow}}_${{ github.run_id }}'
+        customSettings: ''
+        toolpath: 'reportgeneratortool'
+
+
+    # Upload Coverage Info to an Artifact
+    - name: Upload a Build Artifact
+      uses: actions/upload-artifact@v3.1.2    
+      with:
+        name: Coverage Report
+        path: ${{ env.TEST_COVERAGE_REPORT }}
+
+
+
+    #  Copy Code Coverage Data to Wiki
+    - name: External repo/wiki sync action
+      uses: kai-tub/external-repo-sync-action@v1
+      env: 
+        GH_ACCESS_TOKEN: ${{ secrets.WIKI_ACCESS_TOKEN }}
+        RPT_PATH: "{{ env.WIKI_COVERAGE_PATH }}/"
+      with:  
+        source-directory: '${{ env.RPT_PATH }}'
+        include-patterns: "*.md *.html *.png *.jpg"
+
+
+
+    # Start a Shell into the Ubuntu box.  Press end key to start
+#    - name: Setup tmate session
+#      if: success() || failure()
+#      uses: mxschmitt/action-tmate@v3
+
+
+

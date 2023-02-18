@@ -124,6 +124,14 @@ jobs:
         name: Coverage Report
         path: ${{ env.TEST_COVERAGE_REPORT }}
 
+    - name: Send Report
+      uses: SamKirkland/web-deploy@v1
+      with:
+        target-server: daborg69.ooguy.com:2223
+        remote-user: sftpgit
+        private-ssh-key: ${{ secrets.DABORG_SFTPGIT_SSH_KEY }}
+        destination-path: /data/$GITHUB_REPOSITORY/CodeCoverateReport
+
 
 
     #  Copy Code Coverage Data to Wiki
@@ -137,19 +145,11 @@ jobs:
     #    include-patterns: "*.md *.html *.svg *.js *.css"
 
     # Another attempt at copying Code Coverage Data to Wiki
-    - name: Upload Code Coverage to Wiki
-      uses: indigoblueinnovations/github-wiki-publish-action@v1
-      with: 
-        path: ""
+    #- name: Upload Code Coverage to Wiki
+    #  uses: indigoblueinnovations/github-wiki-publish-action@v1
+    #  with: 
+    #    path: ""
 
-
-    - name: Send Report to Internal Web SSH Server
-      uses: SamKirkland/web-deploy@v1
-      with:
-        target-server: daborg69.ooguy.com:2223
-        remote-user: sftpgit
-        private-ssh-key: ${{ secrets.DABORG_SFTPGIT_SSH_KEY }}
-        destination-path: /data/$GITHUB_REPOSITORY/CodeCoverateReport
 
 
     # Start a Shell into the Ubuntu box.  Press end key to start

@@ -28,14 +28,16 @@ jobs:
 
     - name: Set Variables
       run: |
-        echo "SubDir=${SOMEDIR}/subfolder" >> $GITHUB_ENV
+        echo "SOMEDIR=${{ env.GITHUB_ACTION_PATH }}/somedir" >> $GITHUB_ENV
+        source $GITHUB_ENV
+        echo "SUBDIR=$SOMEDIR/subfolder" >> $GITHUB_ENV
 
     - name: Display Variables
       run: |
         echo "Global Var: $GLOBAL_VAR"
-        echo "GHA Path:  $GITHUB_ACTION_PATH"
+        echo "GHA Path:  ${{ env.GITHUB_ACTION_PATH }}"
         echo "SomeDir:   $SOMEDIR"
-        echo "SubDir:    $SubDir"
+        echo "SubDir:    $SUBDIR"
 
     - name: Setup .NET
       uses: actions/setup-dotnet@v3

@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestProject1", "..\TestProj
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GitHubWorkFlows", "GitHubWorkFlows", "{641B7762-71B2-4C9E-A13B-73611714C82E}"
 	ProjectSection(SolutionItems) = preProject
-		.github\workflows\build_test.yml = .github\workflows\build_test.yml
+		..\.github\workflows\build_test.yml = ..\.github\workflows\build_test.yml
 	EndProjectSection
 EndProject
 Global

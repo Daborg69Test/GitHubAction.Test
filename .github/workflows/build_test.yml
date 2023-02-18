@@ -52,8 +52,9 @@ jobs:
         echo "TEST_COVERAGE_REPORT=$TEST_PATH/$COVERAGE_FOLDER" >> $GITHUB_ENV
 
         #source $GITHUB_ENV
-        echo "REPO_NAME=${{ github.event.repository.name }}"
+        echo "REPO_NAME=${{ github.event.repository.name }}" >> $GITHUB_ENV
         echo "WIKI_MOVER_ROOT = $WIKI_MOVER_ROOT"
+        source $GITHUB_ENV
 
         # WIKI Mover Coverage Report Src Location.  Same as Test Code Coverage Report - but different starting point as running in a docker container.
         echo "WIKI_COVERAGE_PATH=$WIKI_MOVER_ROOT/$REPO_NAME/$REPO_NAME/TEST_FOLDER/$TEST_PROJECT/$COVERAGE_FOLDER/" >> $GITHUB_ENV

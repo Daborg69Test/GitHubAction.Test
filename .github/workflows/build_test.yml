@@ -61,7 +61,8 @@ jobs:
         
         echo "/github/workspace/src/Test_StreamProcessorLibrary/report/"
 
-        echo "REMOTE_SYNC_PATH=/data/syncs/$GITHUB_REPOSITORY/CodeCoverateReport" >> $GITHUB_ENV
+        #echo "REMOTE_SYNC_PATH=/data/syncs/$GITHUB_REPOSITORY/CodeCoverateReport" >> $GITHUB_ENV
+        echo "REMOTE_SYNC_PATH=/data/syncs" >> $GITHUB_ENV
 
     - name: Display Variables
       run: |

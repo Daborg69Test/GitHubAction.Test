@@ -136,14 +136,14 @@ jobs:
 
 
     #  Copy Code Coverage Data to Wiki
-    #- name: External repo/wiki sync action
-    #  uses: kai-tub/external-repo-sync-action@v1
-    #  env: 
-    #    GH_ACCESS_TOKEN: ${{ secrets.WIKI_ACCESS_TOKEN }}
-    #    RPT_PATH: "${{ env.WIKI_COVERAGE_PATH }}"
-    #  with:  
-    #    source-directory: '${{ env.RPT_PATH }}'
-    #    include-patterns: "*.md *.html *.svg *.js *.css"
+    - name: External repo/wiki sync action
+      uses: kai-tub/external-repo-sync-action@v1
+      env: 
+        GH_ACCESS_TOKEN: ${{ secrets.WIKI_ACCESS_TOKEN }}
+        RPT_PATH: "${{ env.WIKI_COVERAGE_PATH }}"
+      with:  
+        source-directory: '${{ env.RPT_PATH }}'
+        include-patterns: "*.md *.html *.svg *.js *.css"
 
     # Another attempt at copying Code Coverage Data to Wiki
     #- name: Upload Code Coverage to Wiki

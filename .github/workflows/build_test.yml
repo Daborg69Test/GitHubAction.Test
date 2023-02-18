@@ -139,9 +139,9 @@ jobs:
 
 
     # Start a Shell into the Ubuntu box.  Press end key to start
-#    - name: Setup tmate session
-#      if: success() || failure()
-#      uses: mxschmitt/action-tmate@v3
+    - name: Setup tmate session
+      if: success() || failure()
+      uses: mxschmitt/action-tmate@v3
 
 
 

@@ -131,7 +131,7 @@ jobs:
         ssh-port: 2223
         remote-user: sftpgit
         private-ssh-key: ${{ secrets.DABORG_SFTPGIT_SSH_KEY }}
-        destination-path: /data/$GITHUB_REPOSITORY/CodeCoverateReport
+        destination-path: /data/syncs/$GITHUB_REPOSITORY/CodeCoverateReport
 
 
 

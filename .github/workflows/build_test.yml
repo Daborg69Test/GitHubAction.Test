@@ -14,6 +14,8 @@ on:
 
 env:
   GLOBAL_VAR: "Global"
+  TEST_FOLDER: "tests"
+  TEST_PROJECT: "TestProject1"
   
 
 jobs:
@@ -26,19 +28,39 @@ jobs:
     - uses: actions/checkout@v3
 
 
+    - name: Dump github context
+      run:   echo "$GITHUB_CONTEXT"
+      shell: bash
+      env:
+        GITHUB_CONTEXT: ${{ toJson(github) }}
+
+
     - name: Set Variables
       run: |
-        echo "SOMEDIR=$GITHUB_WORKSPACE/somedir" >> $GITHUB_ENV
+        # Test Folder
+        echo "TEST_PATH=$GITHUB_WORKSPACE/$TEST_FOLDER"
         source $GITHUB_ENV
-        echo "SUBDIR=$SOMEDIR/subfolder" >> $GITHUB_ENV
+
+        # Test Project Folder
+        echo "TEST_PROJECT_PATH=$TEST_PATH/$TEST_PROJECT" >> $GITHUB_ENV
+        
+        # Test Code Coverage Report
+        echo "TEST_COVERAGE_REPORT=$TEST_PATH/CoverageReport" >> $GITHUB_ENV
+
+        #source $GITHUB_ENV
+        echo "Repo Name = $github.event.repository.name" 
+        echo "/github/workspace/src/Test_StreamProcessorLibrary/report/"
+
 
     - name: Display Variables
       run: |
-        echo "Global Var: $GLOBAL_VAR"
-        echo "Github_env: $GITHUB_ENV"
-        echo "GitHome Workspace:  $GITHUB_WORKSPACE"
-        echo "SomeDir:   $SOMEDIR"
-        echo "SubDir:    $SUBDIR"
+        echo "Global Var:            $GLOBAL_VAR"
+        echo "Github_env:            $GITHUB_ENV"
+        echo "GitHome Workspace:     $GITHUB_WORKSPACE"
+        echo "Test_Path:             $TEST_PATH"
+        echo "Test_Project_Path:     $TEST_PROJECT_PATH"
+        echo "Test_Coverage_Report:  $TEST_COVERAGE_REPORT"
+
 
     - name: Setup .NET
       uses: actions/setup-dotnet@v3

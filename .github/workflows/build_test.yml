@@ -16,7 +16,8 @@ env:
   GLOBAL_VAR: "Global"
   TEST_FOLDER: "tests"
   TEST_PROJECT: "TestProject1"
-  
+  WIKI_MOVER_ROOT: "/github/workspace"
+  COVERAGE_FOLDER: "CoverageReport"
 
 jobs:
   build:
@@ -45,10 +46,15 @@ jobs:
         echo "TEST_PROJECT_PATH=$TEST_PATH/$TEST_PROJECT" >> $GITHUB_ENV
         
         # Test Code Coverage Report
-        echo "TEST_COVERAGE_REPORT=$TEST_PATH/CoverageReport" >> $GITHUB_ENV
+        echo "TEST_COVERAGE_REPORT=$TEST_PATH/$COVERAGE_FOLDER" >> $GITHUB_ENV
 
         #source $GITHUB_ENV
-        echo "Repo Name = $github.event.repository.name" 
+        echo "Repo Name=${{ github.event.repository.name }}"
+        echo "WIKI_MOVER_ROOT = $WIKI_MOVER_ROOT"
+
+        # WIKI Mover Coverage Report Src Location.  Same as Test Code Coverage Report - but different starting point as running in a docker container.
+        echo "WIKI_COVERAGE_PATH=$WIKI_MOVER_ROOT/$TEST_FOLDER/$COVERAGE_FOLDER/" >> $GITHUB_ENV
+        
         echo "/github/workspace/src/Test_StreamProcessorLibrary/report/"
 
 
@@ -60,6 +66,8 @@ jobs:
         echo "Test_Path:             $TEST_PATH"
         echo "Test_Project_Path:     $TEST_PROJECT_PATH"
         echo "Test_Coverage_Report:  $TEST_COVERAGE_REPORT"
+        echo "Wiki Mover Root:       $WIKI_MOVER_ROOT"
+        echo "WIKI Coverage Path     $WIKI_COVERAGE_PATH"
 
 
     - name: Setup .NET

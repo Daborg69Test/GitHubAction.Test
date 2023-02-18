@@ -57,7 +57,7 @@ jobs:
         source $GITHUB_ENV
 
         # WIKI Mover Coverage Report Src Location.  Same as Test Code Coverage Report - but different starting point as running in a docker container.
-        echo "WIKI_COVERAGE_PATH=$WIKI_MOVER_ROOT/$REPO_NAME/$REPO_NAME/$TEST_FOLDER/$TEST_PROJECT/$COVERAGE_FOLDER/" >> $GITHUB_ENV
+        echo "WIKI_COVERAGE_PATH=$WIKI_MOVER_ROOT/$TEST_FOLDER/$TEST_PROJECT/$COVERAGE_FOLDER/" >> $GITHUB_ENV
         
         echo "/github/workspace/src/Test_StreamProcessorLibrary/report/"
 
@@ -134,7 +134,7 @@ jobs:
         RPT_PATH: "${{ env.WIKI_COVERAGE_PATH }}"
       with:  
         source-directory: '${{ env.RPT_PATH }}'
-        include-patterns: "*.md *.html *.png *.jpg"
+        include-patterns: "*.md *.html *.svg *.js *.css"
 
 
 

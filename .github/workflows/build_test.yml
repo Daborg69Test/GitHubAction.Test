@@ -5,12 +5,13 @@
 
 name: BuildTest
 
-on:
+on: 
   push:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
-
+  repository_dispatch:
+  
 
 # The only variables you need to change are these!
 env:

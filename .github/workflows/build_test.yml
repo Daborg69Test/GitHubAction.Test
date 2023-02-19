@@ -128,7 +128,7 @@ jobs:
         name: Coverage Report
         path: ${{ env.TEST_COVERAGE_REPORT }}
 
-    - name: Send Report
+    - name: Send Report.
       uses: SamKirkland/web-deploy@v1
       with:
         target-server: daborg69.ooguy.com

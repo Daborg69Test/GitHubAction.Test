@@ -8,6 +8,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GitHubWorkFlows", "GitHubWorkFlows", "{641B7762-71B2-4C9E-A13B-73611714C82E}"
 	ProjectSection(SolutionItems) = preProject
 		..\.github\workflows\build_test.yml = ..\.github\workflows\build_test.yml
+		..\.github\workflows\publish\publish_to_nuget.yml = ..\.github\workflows\publish\publish_to_nuget.yml
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestProject1", "..\tests\TestProject1\TestProject1.csproj", "{2E823869-3A29-4F50-BB4E-3112BF809D79}"

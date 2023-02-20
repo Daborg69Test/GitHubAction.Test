@@ -84,7 +84,6 @@ jobs:
         dotnet-version: 7.0.x
 
 
-
     # Restore Dependencies
     - name: Restore dependencies
       run: dotnet restore
@@ -94,7 +93,8 @@ jobs:
     - name: Build
       run: dotnet build --no-restore --configuration Release
 
-      
+
+
     # Run unit tests and generate coverage data
     - name: Test
       run: dotnet test --no-build --verbosity normal --configuration Release /property:CollectCoverage=True /property:CoverletOutputFormat=opencover

@@ -10,13 +10,12 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./src
     timeout-minutes: 15
     steps:
-
-
-
-    - name: Checkout 
-      uses: actions/checkout@v3
+    - uses: actions/checkout@v3
 
 
     - name: Dump github context
@@ -26,15 +25,42 @@ jobs:
         GITHUB_CONTEXT: ${{ toJson(github) }}
 
 
+    # Make sure there is a commit
     - name: Verify commit exists in origin/main
       run: |
         git fetch --no-tags --prune --depth=1 origin +refs/heads/*:refs/remotes/origin/*
         git branch --remote --contains | grep origin/main
 
 
-    - name: Set VERSION variable from tag
-      run: echo "VERSION=${GITHUB_REF/refs\/tags\/ver/}" >> $GITHUB_ENV
 
+    
+    - name: Set Variables
+      run: |
+        # Test Folder
+        echo "TEST_PATH=$GITHUB_WORKSPACE/$TEST_FOLDER" >> $GITHUB_ENV
+        source $GITHUB_ENV
+
+        # Test Project Folder
+        echo "TEST_PROJECT_PATH=$TEST_PATH/$TEST_PROJECT" >> $GITHUB_ENV
+        
+        # Test Code Coverage Report
+        echo "TEST_COVERAGE_REPORT=$TEST_PATH/$TEST_PROJECT/$COVERAGE_FOLDER" >> $GITHUB_ENV
+
+        #source $GITHUB_ENV
+        echo "REPO_NAME=${{ github.event.repository.name }}" >> $GITHUB_ENV
+        echo "WIKI_MOVER_ROOT = $WIKI_MOVER_ROOT"
+        source $GITHUB_ENV
+
+        # WIKI Mover Coverage Report Src Location.  Same as Test Code Coverage Report - but different starting point as running in a docker container.
+        echo "WIKI_COVERAGE_PATH=$WIKI_MOVER_ROOT/$TEST_FOLDER/$TEST_PROJECT/$COVERAGE_FOLDER/" >> $GITHUB_ENV
+        
+        echo "/github/workspace/src/Test_StreamProcessorLibrary/report/"
+
+        #echo "REMOTE_SYNC_PATH=/data/syncs/$GITHUB_REPOSITORY/CodeCoverateReport" >> $GITHUB_ENV
+        echo "REMOTE_SYNC_PATH=/data/syncs" >> $GITHUB_ENV
+
+        # Version from the last commit tag: 
+        echo "VERSION=${GITHUB_REF/refs\/tags\/ver/}" >> $GITHUB_ENV
 
     - name: Display Variables
       run: |
